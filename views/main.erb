@@ -3,25 +3,16 @@
      <div class="hero-unit">
          <h1>Your Gardening Task List</h1>
      
-         <p><a class="btn btn-primary btn-large">ADD TASK HERE&raquo;</a></p>
+         <p><a href="/choose" class="btn btn-primary btn-large">ADD TASK HERE&raquo;</a></p>
      </div><!-- .hero-unit -->
         
  <div class="row">
     <div class="span6">
          <h2>Your Open Tasks:</h2>
          		<ul>
-							<% @new_garden_tasks.each do |to_do| %>
+							<% @to_dos.each do |to_do|%>
 							<li><%= to_do%></li>
 							<% end %>
 						</ul>
        
-    </div>
-   
-    <div class="span6">
-         <h2>Your Completed Tasks:</h2>
-         		<ul>
-							<% @completed_tasks.each do |to_do| %>
-							<li><%= to_do%></li>
-							<% end %>
-						</ul>
     </div>

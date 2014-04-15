@@ -1,46 +1,67 @@
 require 'sinatra'
 
-# get '/' do
-#   erb :layout
-# end
+get "/error" do   
+	erb :error 
+end
+
+get "Error" do 
+	erb :error 
+end
 
 get "/" do
-	@new_garden_tasks = Gardening.tasks
-	erb :layout => :main
+	@to_dos = Gardening.tasks #@to_dos is an instance variable(array)
+	erb :main
 end
 
-get "/error" do
-	erb :layout
+post "/to_dos" do
+	text = params[:description]
+	 	if Gardening.accept_task(text)
+	 		# @to_dos = Gardening.tasks
+	 		# erb :main #puts a nilclass error for the each method
+			redirect "/"
+		else
+			erb :error
+		end
 end
+
+get "/choose" do
+	erb :choose
+end
+
+
+
+
 
 
 class	Gardening 
-	@@tasks =["Trim the hedges", "Plant the flowers"]
-	attr_reader :tasks
+	@@tasks = ["Hedge the Bushes", "Trim the Poplar"]
+	@@common_garden_tasks = ["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"]
+	
 	def initialize
 		
-		@new_task = []
-		@common_garden_tasks = ["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"]
 	end
 
 	def self.tasks
-		@@tasks
+		return @@tasks
+
 	end
 
 
-	def accept_task(task)
+	def self.accept_task(task)
 		 if evaluate_task(task) == true
-				@@tasks.push(task)
+		 		@@tasks.push(task)
+				return true
 			else
-				puts "I do not recognize that as a Gardening task."	
+				return false
 			end	
 	end
 
-	def evaluate_task(task)
+	def self.evaluate_task(task)
 		task_to_split = task.downcase
 		split_task = task_to_split.split(" ")
-		unmatched_tasks = (@common_garden_tasks-split_task)
-		if unmatched_tasks.length < @common_garden_tasks.length
+		unmatched_tasks = (@@common_garden_tasks - split_task)
+		if unmatched_tasks.length < @@common_garden_tasks.length
+			
 			return true
 		else
 			return false
