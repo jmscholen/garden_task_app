@@ -1,4 +1,8 @@
 require 'sinatra'
+require "sinatra/activerecord"
+
+set :database, "sqlite3:///gardening_task_app.db"
+
 
 get "/error" do   
 	erb :error 
@@ -9,65 +13,79 @@ get "Error" do
 end
 
 get "/" do
-	@to_dos = Gardening.tasks #@to_dos is an instance variable(array)
+	@to_dos = GardeningTask.all #@to_dos is an instance variable(array)
 	erb :main
 end
 
 post "/to_dos" do
-	text = params[:description]
-	 	if Gardening.accept_task(text)
-	 		# @to_dos = Gardening.tasks
-	 		# erb :main #puts a nilclass error for the each method
+	 @new_garden_task = GardeningTask.new #(params[:gardening_task])
+	 if @new_garden_task.accept_task("#{params[:description]}")
+	 		@new_garden_task.save
 			redirect "/"
 		else
 			erb :error
 		end
 end
 
+put "/to_dos/:id" do
+	@to_dos = GardeningTask.find(params[:id])
+		if @to_dos.find_attributes(parama[:id])
+			erb :"to_dos/#{:id}"
+		else
+			erb :error_mistake
+		end
+end
+
+put "/to_dos/:id/edit" do
+	@to_dos = GardeningTask.find(params[:id])
+	if @to_dos.find_attributes(parama[:id])
+			erb :"to_dos/#{:id}/edit"
+		else
+			erb :error_mistake
+		end
+end
 get "/choose" do
 	erb :choose
 end
 
-
-
-
-
-
-class	Gardening 
-	@@tasks = ["Hedge the Bushes", "Trim the Poplar"]
-	@@common_garden_tasks = ["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"]
+delete "/to_dos/:id/delete" do
+	@to_dos = GardeningTask.find(params[:id])
 	
-	def initialize
+	erb :delete
+end
+
+class	GardeningTask < ActiveRecord::Base
+	# @@tasks = ["Hedge the Bushes", "Trim the Poplar"]
+	# @@common_garden_tasks = ["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"]
+	
+	# def initialize (commenting out due to NoMethodError - undefined method `delete' for nil:NilClass:...this was suggested by someone on SOF)
 		
-	end
+	# end
 
-	def self.tasks
-		return @@tasks
+	# def self.tasks (no longer need an array)
+	# 	return @@tasks
 
-	end
+	# end
 
 
-	def self.accept_task(task)
-		 if evaluate_task(task) == true
-		 		@@tasks.push(task)
+	def self.accept_task(text)
+		 if evaluate_task(text) == true
+
 				return true
 			else
-				return false
+				return true # changed from false to test
 			end	
 	end
 
-	def self.evaluate_task(task)
-		task_to_split = task.downcase
+	def self.evaluate_task(text)
+		task_to_split = text.downcase
 		split_task = task_to_split.split(" ")
-		unmatched_tasks = (@@common_garden_tasks - split_task)
-		if unmatched_tasks.length < @@common_garden_tasks.length
-			
+		unmatched_tasks = (["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"] - split_task)
+		if unmatched_tasks.length < ["prune", "cut", "hedge", "trim", "mow", "plant", "cultivate", "till"].length
 			return true
 		else
 			return false
 		end	
 	end
-
-
 end
 

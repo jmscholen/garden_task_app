@@ -11,7 +11,7 @@
          <h2>Your Open Tasks:</h2>
          		<ul>
 							<% @to_dos.each do |to_do|%>
-							<li><%= to_do%></li>
+							<li>"<%= to_do.description %>"</li>
 							<% end %>
 						</ul>
        
