@@ -1,0 +1,13 @@
+<div class="container">
+        
+     <div class="row">
+          <h2>Update Your Task:</h2>
+         		<form action="/to_dos/<%=@to_dos.id%>/edit" method="post">
+         			<input type="hidden" name="_method" value="put">
+                    <input type="text" id="gardening_tasks_description" name="gardening_tasks[description]" value="<%=@to_dos.description%>">
+                    <input type="submit">
+               </form>
+       
+     </div>
+
+</div>  

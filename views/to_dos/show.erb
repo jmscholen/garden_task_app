@@ -1,0 +1,33 @@
+<div class="container">
+         
+     <div class="hero-unit">
+         <h1>Your Gardening Task List</h1>
+     
+         <p><a href="/new" class="btn btn-primary btn-large">ADD TASK HERE&raquo;</a></p>
+     </div>
+        
+     
+          <div class="container">
+               <h2>Your Open Tasks:</h2>
+               <ul>
+                    <% @to_dos.each do |to_do|%>
+                    <div class="btn-group-verticle" >  
+                         <div class="btn-group" >  
+                              
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                 <li><%= to_do.description %></li>
+                                 <span class="caret"></span>
+                              </button>
+                                   <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+                                      <li><a href="/to_dos/<%=to_do.id %>/edit">Edit</a></li>
+                                      <li><a href="/to_dos/<%=to_do.id %>/delete">Delete</a></li>
+                                   </ul> 
+                         </div>
+
+                    <% end %>
+     		     </div>   
+               </ul>
+          </div>
+     
+</div>
+
