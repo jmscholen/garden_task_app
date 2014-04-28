@@ -1,16 +1,28 @@
 
-
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8">
+    <title>Gardening To Do's</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css">
+ </head>
+   
+ <body>
 <div class="container">
         
      <div class="row">
           <h2>Enter Your Task:</h2>
          		<form action="/to_dos" method="post">
-                    <input type="text" id="gardening_task_owner" name="gardening_task[owner]" placeholder="Enter Task Owner">
                      <input type="text" id="gardening_task_description" name="gardening_task[description]" placeholder ="Enter Gardening Task">
-                      <input type="text" id="gardening_task_due_date" name="gardening_task[due_date]" value="Enter Due Date">
+                      <input type="text" id="gardening_task_due_date" name="gardening_task[due_date]" placeholder="Enter Due Date">
                     <input type="submit">
                </form>
      </div>
      
 
 </div>    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+ </body>
+</html>

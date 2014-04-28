@@ -1,5 +1,6 @@
 require 'sinatra'
 require "sinatra/activerecord"
+require 'bootstrap-sass'
 
 set :database, "sqlite3:///gardening_task_app.db"
 

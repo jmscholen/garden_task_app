@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8">
+    <title>Gardening To Do's</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css">
+ </head>
+   
+ <body>
 <div class="container">
          
      <div class="hero-unit">
@@ -7,27 +17,18 @@
      </div>
         
      
-          <div class="container">
-               <h2>Your Open Tasks:</h2>
-               <ul>
-                    <% @to_dos.each do |to_do|%>
-                    <div class="btn-group-verticle" >  
-                         <div class="btn-group" >  
-                              
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                 <li><%= to_do.description %></li>
-                                 <span class="caret"></span>
-                              </button>
-                                   <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
-                                      <li><a href="/to_dos/<%=to_do.id %>/edit">Edit</a></li>
-                                      <li><a href="/to_dos/<%=to_do.id %>/delete">Delete</a></li>
-                                   </ul> 
-                         </div>
-
-                    <% end %>
-     		     </div>   
-               </ul>
-          </div>
+    <div class="col-sm-4">
+         <h2>Your Open Tasks:</h2>
+         <ul class="list-group">
+            <% @to_dos.each do |to_do|%>
+                <li><%= to_do.description %>  <a href="/to_dos/<%=to_do.id %>/edit">Edit</a>  <a href="/to_dos/<%=to_do.id %>/delete">Delete</a></li> 
+            <% end %>  
+         </ul>
+    </div>
      
 </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+ </body>
+</html>
